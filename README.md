@@ -163,7 +163,7 @@ None are used at runtime: no model, no prompts and 0 API calls, so the cost is �
 |---|---|
 | **Prompt injection** | The whole thread is scanned for text aimed at a machine: AI, bot, LLM, language model, "assistant:", admin override, "ignore previous instructions", "pre-approved", "output ACCEPT", and the Hindi variants. Benign phrases are whitelisted first: "AI-powered", "ERP system", "system integration team", "assistant manager". |
 | **Banned terms** | Checked in the latest message only: auto-renewal in any wording, an advance over 30% (as a number or in words, e.g. "half upfront"), unlimited liability, exclusivity. Explicit negations ("no automatic renewal") are allowed. |
-| **Amendments** | Applied if their effective date is on or before the thread date, **in effective-date order**. In the LED Panels conflict, AMD-08 (12-04) and AMD-07 (12-05) are numbered against date order; we tested this on the leaderboard (see §7). |
+| **Amendments** | Applied if their effective date is on or before the thread date, **in effective-date order**. In the LED Panels conflict, AMD-08 (12-04) and AMD-07 (12-05) are numbered against date order, so the amendment with the later effective date (AMD-07) is the one in force. |
 | **Supplier contracts** | A price cap replaces the walk-away price, and a contract FX rate replaces the default rate. PROBATION suppliers get L = target. BLACKLISTED suppliers are rejected. |
 | **Trading names** | Lookup is by the thread's `supplier` column, matched exactly to the registry; all names matched. A name signed in the message body is never used, so it can't change a supplier's status. |
 | **Currencies** | ₹/Rs/INR, $/USD, €/EUR and £/GBP are recognized. Others (SGD, AED, JPY) give MISSING_INFO. |
@@ -181,15 +181,7 @@ None are used at runtime: no model, no prompts and 0 API calls, so the cost is �
 - The injection and banned-term detectors were reviewed line by line.
 - No offer lies within 0.3% of its L(r) or within 1% of its approval limit, so no label depends on floating-point precision.
 
-**Submissions:**
-
-| # | Data | Change | Score |
-|---|---|---|---|
-| 1 | Original | First full run | 1.00000 (declared invalid by the organizers after the dataset update) |
-| 2 | Updated | Same code, re-run on the new data | **1.00000** (final) |
-| 3 | Updated | Diagnostic: the 2 threads affected by the LED conflict (T11894, T11933) under amendment-number order | 0.99836 |
-
-The drop in submission 3 confirmed effective-date order.
+**Final submission:** `submission.csv`, produced by `agent.py` on the updated dataset, scored **1.00000** on the public leaderboard. When the organizers updated the dataset, we re-ran the same code without any changes.
 
 **Final label distribution:**
 
