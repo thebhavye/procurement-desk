@@ -1,0 +1,4 @@
+__pycache__/
+data/
+sample_out.csv
+debug.csv
