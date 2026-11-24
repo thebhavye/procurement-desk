@@ -108,7 +108,7 @@ A is the approval limit, after amendments. Both comparisons carry a tiny toleran
 ## 3. Architecture
 
 ```mermaid
-flowchart LR
+flowchart TD
     T[threads.csv] --> D
     P[playbook/*.md] --> LP[load_playbook] --> PR[params:<br/>category + amendments<br/>+ contract cap] --> D
     D[decide] --> SP[split_thread] --> OP[offer_price<br/>unit_adjust]
