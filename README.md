@@ -41,7 +41,7 @@ For each thread, the agent:
 
 ### Price normalization
 
-The quoted number is v, in currency c, and the normalized price is p.
+The quoted number is v, in currency c, and the normalized price is p. The steps below are applied in order, each one updating p.
 
 **Currency.** The contract rate takes priority over the default table (USD 84.5, EUR 91, GBP 106). Any other currency gives MISSING_INFO.
 
@@ -49,19 +49,19 @@ $$p = v \cdot \mathrm{fx}(c)$$
 
 **Unit.** For quotes per dozen, per N units, per pack of N, or as a total for N units:
 
-$$p \leftarrow p / 12 \quad\text{or}\quad p \leftarrow p / N$$
+$$p_{\mathrm{unit}} = \frac{p}{12} \quad \text{or} \quad p_{\mathrm{unit}} = \frac{p}{N}$$
 
 Per ream, when the normalized unit is a box of 10 reams:
 
-$$p \leftarrow 10p$$
+$$p_{\mathrm{box}} = 10 \times p_{\mathrm{ream}}$$
 
 **Billing period.** This applies to subscription categories only; a quote with no period gives MISSING_INFO.
 
-$$p_{\mathrm{year}} = 12\,p_{\mathrm{month}}$$
+$$p_{\mathrm{year}} = 12 \times p_{\mathrm{month}}$$
 
 **GST.** For GST-inclusive quotes, where g is the category's GST rate:
 
-$$p \leftarrow \frac{p}{1+g}$$
+$$p_{\mathrm{exGST}} = \frac{p_{\mathrm{inclGST}}}{1+g}$$
 
 **Offer structures:**
 
@@ -70,8 +70,8 @@ $$p \leftarrow \frac{p}{1+g}$$
 | D% off a list price P | $p = P(1 - D/100)$ |
 | Range "between A and B" | $p = B$ (upper end, per the playbook) |
 | Tier: P₁ for orders up to N units, P₂ above | $p = P_1$ if qty ≤ N, else $p = P_2$ |
-| Volume discount D% for orders of at least N | $p \leftarrow p(1 - D/100)$, applied only if qty ≥ N |
-| K free for every N paid | $p \leftarrow pN/(N+K)$ |
+| Volume discount D% for orders of at least N | $p_{\mathrm{new}} = p \times (1 - D/100)$, applied only if qty ≥ N |
+| K free for every N paid | $p_{\mathrm{new}} = p \times N/(N+K)$ |
 | "further D% off our previous quote" | $p = p_{\mathrm{prev}}(1 - D/100)$ |
 | Correction "should read X, not Y" | X replaces Y |
 
